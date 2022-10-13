@@ -3,5 +3,7 @@ libcap-ng.so.0
 libglib-2.0.so.0
 libm.so.6
 libncursesw.so.6
+libnl-3.so.200
+libnl-genl-3.so.200
 libnuma.so.1
 libtinfow.so.6
