@@ -4,7 +4,7 @@
 #
 Name     : irqbalance
 Version  : 1.9.1
-Release  : 24
+Release  : 25
 URL      : https://github.com/Irqbalance/irqbalance/archive/v1.9.1/irqbalance-1.9.1.tar.gz
 Source0  : https://github.com/Irqbalance/irqbalance/archive/v1.9.1/irqbalance-1.9.1.tar.gz
 Source1  : irqbalance.tmpfiles
@@ -26,6 +26,7 @@ BuildRequires : pkgconfig(libnl-genl-3.0)
 BuildRequires : pkgconfig(libsystemd)
 BuildRequires : pkgconfig(ncursesw)
 BuildRequires : pkgconfig(numa)
+Patch1: 0001-Run-irqbalance-as-oneshot-by-default-without-env.patch
 
 %description
 This directory contains meson build instructions for irqbalance. This is here to see if there is any interest from
@@ -85,13 +86,14 @@ services components for the irqbalance package.
 %prep
 %setup -q -n irqbalance-1.9.1
 cd %{_builddir}/irqbalance-1.9.1
+%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1665689146
+export SOURCE_DATE_EPOCH=1666308744
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
@@ -101,7 +103,7 @@ export CXXFLAGS="$CXXFLAGS -fno-lto "
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1665689146
+export SOURCE_DATE_EPOCH=1666308744
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/irqbalance
 cp %{_builddir}/irqbalance-%{version}/COPYING %{buildroot}/usr/share/package-licenses/irqbalance/dfac199a7539a404407098a2541b9482279f690d || :
