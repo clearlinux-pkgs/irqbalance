@@ -1,0 +1,26 @@
+From 9537ed3f504578b7bf92f39ec1bbf05b403ea958 Mon Sep 17 00:00:00 2001
+From: William Douglas <william.douglas@intel.com>
+Date: Mon, 11 Dec 2023 11:13:20 -0800
+Subject: [PATCH] Run as oneshot without env by default
+
+---
+ misc/irqbalance.service | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/misc/irqbalance.service b/misc/irqbalance.service
+index 45c36ad..13e040c 100644
+--- a/misc/irqbalance.service
++++ b/misc/irqbalance.service
+@@ -8,7 +8,8 @@ ConditionCPUs=>1
+ [Service]
+ EnvironmentFile=-/usr/lib/irqbalance/defaults.env
+ EnvironmentFile=-/path/to/irqbalance.env
+-ExecStart=/usr/sbin/irqbalance $IRQBALANCE_ARGS
++ExecStart=/usr/sbin/irqbalance --oneshot
++Type=oneshot
+ ReadOnlyPaths=/
+ ReadWritePaths=/proc/irq
+ RestrictAddressFamilies=AF_UNIX AF_NETLINK
+-- 
+2.43.0
+
